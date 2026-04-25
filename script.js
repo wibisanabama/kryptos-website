@@ -3,7 +3,7 @@
 
 const API_KEY = (typeof CONFIG !== "undefined" && CONFIG.COINGECKO_API_KEY) ? CONFIG.COINGECKO_API_KEY : "";
 const BASE = "https://api.coingecko.com/api/v3";
-const HEADERS = { "x-cg-demo-api-key": API_KEY };
+const HEADERS = API_KEY ? { "x-cg-demo-api-key": API_KEY } : {};
 
 let state = {
   currency: "usd",
