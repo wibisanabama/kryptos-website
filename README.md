@@ -1,8 +1,8 @@
-# Kryptos — Crypto Monitoring Dashboard
+# Kryptos - Crypto Monitoring Dashboard
 
 Dashboard pemantau harga cryptocurrency real-time menggunakan CoinGecko API.
 
-## ⚙️ Setup
+## Setup
 
 1. Clone repository ini
 2. Salin file konfigurasi:

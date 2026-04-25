@@ -1,6 +1,4 @@
-# ══════════════════════════════════════════
-#  API KEYS & SECRETS — JANGAN DI-COMMIT
-# ══════════════════════════════════════════
+# API KEYS & SECRETS
 config.js
 
 # Environment files
