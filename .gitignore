@@ -1,0 +1,19 @@
+# ══════════════════════════════════════════
+#  API KEYS & SECRETS — JANGAN DI-COMMIT
+# ══════════════════════════════════════════
+config.js
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.suo
+*.user

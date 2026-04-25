@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Kryptos — Real-time cryptocurrency monitoring dashboard. Track prices, market cap, volume, and crypto market trends.">
+    <title>Kryptos</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app">
+        <header class="header" id="header">
+            <div class="header-inner">
+                <a href="#" class="logo" id="logo">
+                    <span class="logo-text">Kryptos</span>
+                </a>
+                <div class="search-wrapper" id="search-wrapper">
+                    <div class="search-icon">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                    </div>
+                    <input type="text" class="search-input" id="search-input" placeholder="Search coins..." autocomplete="off">
+                    <div class="search-shortcut">Ctrl+K</div>
+                    <div class="search-results" id="search-results">
+                        <div class="search-results-inner" id="search-results-inner"></div>
+                    </div>
+                </div>
+                <div class="header-actions">
+                    <button class="currency-toggle" id="currency-toggle" title="Change currency">
+                        <span id="currency-label">USD</span>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+                    </button>
+                    <div class="currency-dropdown" id="currency-dropdown">
+                        <button class="currency-option active" data-currency="usd">🇺🇸 USD</button>
+                        <button class="currency-option" data-currency="idr">🇮🇩 IDR</button>
+                        <button class="currency-option" data-currency="eur">🇪🇺 EUR</button>
+                        <button class="currency-option" data-currency="jpy">🇯🇵 JPY</button>
+                        <button class="currency-option" data-currency="gbp">🇬🇧 GBP</button>
+                    </div>
+                </div>
+                <div class="last-updated" id="last-updated">
+                    <span class="pulse-dot"></span>
+                    <span>Live</span>
+                </div>
+            </div>
+        </header>
+
+        <main class="main">
+            <section class="global-stats" id="global-stats">
+                <div class="stat-card" id="stat-total-market-cap">
+                    <div class="stat-label">Total Market Cap</div>
+                    <div class="stat-value" id="global-market-cap">—</div>
+                    <div class="stat-change" id="global-market-cap-change">—</div>
+                </div>
+                <div class="stat-card" id="stat-24h-volume">
+                    <div class="stat-label">24h Volume</div>
+                    <div class="stat-value" id="global-volume">—</div>
+                    <div class="stat-change neutral" id="global-volume-info">—</div>
+                </div>
+                <div class="stat-card" id="stat-btc-dominance">
+                    <div class="stat-label">BTC Dominance</div>
+                    <div class="stat-value" id="global-btc-dom">—</div>
+                    <div class="stat-change neutral">Market Leader</div>
+                </div>
+                <div class="stat-card" id="stat-active-coins">
+                    <div class="stat-label">Active Coins</div>
+                    <div class="stat-value" id="global-coins">—</div>
+                    <div class="stat-change neutral" id="global-exchanges">—</div>
+                </div>
+            </section>
+
+            <section class="table-section" id="table-section">
+                <div class="section-header">
+                    <h1 class="section-title">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                        Cryptocurrency Prices
+                    </h1>
+                    <div class="table-controls">
+                        <div class="per-page-wrapper">
+                            <button class="per-page-toggle" id="per-page-toggle">
+                                <span id="per-page-label">50</span>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+                            </button>
+                            <div class="per-page-dropdown" id="per-page-dropdown">
+                                <button class="per-page-option" data-value="25">25</button>
+                                <button class="per-page-option active" data-value="50">50</button>
+                                <button class="per-page-option" data-value="100">100</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-container" id="table-container">
+                    <table class="coin-table" id="coin-table">
+                        <thead>
+                            <tr>
+                                <th class="th-rank">#</th>
+                                <th class="th-name">Coin</th>
+                                <th class="th-price sortable" data-sort="current_price">Price</th>
+                                <th class="th-change sortable" data-sort="price_change_percentage_1h_in_currency">1h</th>
+                                <th class="th-change sortable" data-sort="price_change_percentage_24h">24h</th>
+                                <th class="th-change sortable" data-sort="price_change_percentage_7d_in_currency">7d</th>
+                                <th class="th-volume sortable" data-sort="total_volume">Volume 24h</th>
+                                <th class="th-mcap sortable active-sort" data-sort="market_cap">Market Cap</th>
+                                <th class="th-sparkline">7 Days</th>
+                            </tr>
+                        </thead>
+                        <tbody id="coin-table-body">
+                        </tbody>
+                    </table>
+                </div>
+                <div class="table-footer" id="table-footer">
+                    <div class="page-info" id="page-info">Page 1</div>
+                    <div class="pagination" id="pagination">
+                        <button class="page-btn" id="prev-page" disabled>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>
+                            Previous
+                        </button>
+                        <button class="page-btn" id="next-page">
+                            Next
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <div class="bottom-panels" id="bottom-panels">
+                <div class="panel-section" id="trending-section">
+                    <h2 class="sidebar-title">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                        Trending
+                    </h2>
+                    <div class="trending-list" id="trending-list"></div>
+                </div>
+                <div class="panel-section" id="top-gainers-section">
+                    <h2 class="sidebar-title">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+                        Top Gainers 24h
+                    </h2>
+                    <div class="gainers-list" id="gainers-list"></div>
+                </div>
+                <div class="panel-section" id="top-losers-section">
+                    <h2 class="sidebar-title">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 7l9.2 9.2M17 7v10H7"/></svg>
+                        Top Losers 24h
+                    </h2>
+                    <div class="losers-list" id="losers-list"></div>
+                </div>
+            </div>
+        </main>
+
+        <div class="modal-overlay" id="modal-overlay">
+            <div class="modal" id="coin-modal">
+                <div class="modal-body" id="modal-body">
+                    <div class="modal-content" id="modal-content">
+                        <div class="modal-loading">
+                            <div class="spinner"></div>
+                            <p>Loading data...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="loading-overlay" id="loading-overlay">
+            <div class="loading-content">
+                <div class="loading-logo">Kryptos</div>
+                <div class="loading-bar">
+                    <div class="loading-bar-fill"></div>
+                </div>
+                <p class="loading-text">Loading market data...</p>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <p>Data provided by <a href="https://www.coingecko.com" target="_blank" rel="noopener">CoinGecko API</a> · © 2026 Kryptos - All rights reserved</p>
+        </footer>
+    </div>
+
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
